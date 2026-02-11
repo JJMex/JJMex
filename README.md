@@ -56,7 +56,9 @@ Mi ecosistema digital utiliza herramientas de alta eficiencia para garantizar la
 <p align="left">
   <img src="https://komarev.com/ghpvc/?username=JJMex&label=HUB%20ACCESS%20LOGS&color=58a6ff&style=flat-square" alt="JJMex Hub Access" />
 </p>
+
 ---
+
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0D1117&height=60&section=footer" width="100%"/>
 </p>
