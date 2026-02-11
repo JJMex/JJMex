@@ -39,15 +39,27 @@ Mi ecosistema digital utiliza herramientas de alta eficiencia para garantizar la
 
 ---
 
-## 📈 Actividad del Sistema
+## 🛠️ Core Infrastructure Stack
 
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=JJMex&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true" alt="Estadísticas de JJMex" />
-  <br><br>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JJMex&layout=compact&theme=tokyonight&hide_border=true" alt="Lenguajes de JJMex" />
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" />
+  <img src="https://img.shields.io/badge/Telegram_Bot_API-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" />
+  <img src="https://img.shields.io/badge/Waze_Intelligence-33CCFF?style=for-the-badge&logo=waze&logoColor=white" />
+  <img src="https://img.shields.io/badge/Linux_Ubuntu-E95420?style=for-the-badge&logo=linux&logoColor=white" />
+  <img src="https://img.shields.io/badge/JSON_Data-000000?style=for-the-badge&logo=json&logoColor=white" />
 </p>
 
 ---
+
+## 🛰️ System Access Counter
+<p align="left">
+  <img src="https://komarev.com/ghpvc/?username=JJMex&label=HUB%20ACCESS%20LOGS&color=58a6ff&style=flat-square" alt="JJMex Hub Access" />
+</p>
+---
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0D1117&height=60&section=footer" width="100%"/>
+</p>
 
 <p align="right">
   <i>Sincronizado por JJMex Hub | 2026</i> 📡
