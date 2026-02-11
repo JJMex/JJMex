@@ -40,8 +40,11 @@ Mi ecosistema digital utiliza herramientas de alta eficiencia para garantizar la
 ---
 
 ## 📈 Actividad del Sistema
+
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=JJMex&show_icons=true&theme=tokyonight&count_private=true&hide_border=true" alt="Estadísticas de JJMex" />
+  <img src="https://github-readme-stats.vercel.app/api?username=JJMex&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true" alt="Estadísticas de JJMex" />
+  <br><br>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JJMex&layout=compact&theme=tokyonight&hide_border=true" alt="Lenguajes de JJMex" />
 </p>
 
 ---
