@@ -1,20 +1,16 @@
-<div align="center" style="background-color: #0d1117; border-radius: 10px; padding: 20px; border: 1px solid #30363d; box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);">
-  <h1 style="color: #ffffff; font-family: 'Arial Black', sans-serif; font-size: 2.5em; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;">
-    📡 JJMEX HUB
-  </h1>
-  <h3 style="color: #58a6ff; font-family: monospace; font-size: 1.2em; margin-top: 0;">
-    [ DIGITAL INFRASTRUCTURE & AUTONOMOUS SYSTEMS ]
-  </h3>
-  <p style="color: #8b949e;">
-    <i>Sincronizando el flujo urbano y el poder mental mediante ingeniería de datos.</i>
-  </p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/JJMex/JJMex/main/Banner.png" width="100%" alt="JJMex Hub Banner" style="border-radius: 12px; box-shadow: 0px 10px 30px rgba(0,0,0,0.5);">
+</p>
 
-  <p align="center" style="margin-top: 20px;">
-    <img src="https://img.shields.io/badge/SISTEMAS-ACTIVOS-success?style=for-the-badge&logo=github-actions&logoColor=white" />
-    <img src="https://img.shields.io/badge/NIVEL-ELITE-gold?style=for-the-badge" />
-    <img src="https://img.shields.io/badge/REGION-CDMX--MORELOS-blue?style=for-the-badge" />
-  </p>
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/SISTEMAS-ACTIVOS-success?style=for-the-badge&logo=github-actions&logoColor=white" />
+  <img src="https://img.shields.io/badge/ESTADO-ELITE-gold?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/OPERACIONES-CDMX--MORELOS-blue?style=for-the-badge" />
+</p>
+
+> **Infraestructura de monitoreo satelital y automatización de procesos.**
+> *Sincronizando el flujo urbano y el poder mental mediante ingeniería de datos.*
+
 ---
 
 ## 🏛️ La Flota de Inteligencia (Microservicios)
@@ -44,7 +40,9 @@ Mi ecosistema digital utiliza herramientas de alta eficiencia para garantizar la
 ---
 
 ## 📈 Actividad del Sistema
-![Estadísticas de JJMex](https://github-readme-stats.vercel.app/api?username=JJMex&show_icons=true&theme=tokyonight&count_private=true&hide_border=true)
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=JJMex&show_icons=true&theme=tokyonight&count_private=true&hide_border=true" alt="Estadísticas de JJMex" />
+</p>
 
 ---
 
