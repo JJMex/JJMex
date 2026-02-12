@@ -32,9 +32,7 @@
             
             /* COLORES DE MARCA (ELITE NEON) */
             --tg-color: #229ED9;
-            --tg-glow: rgba(34, 158, 217, 0.4);
             --wa-color: #25D366;
-            --wa-glow: rgba(37, 211, 102, 0.4);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,15 +57,23 @@
         }
         .orb-1 { width: 350px; height: 350px; background: #0f3057; top: -100px; left: -100px; }
         .orb-2 { width: 300px; height: 300px; background: #064e3b; bottom: 0; right: -50px; opacity: 0.2; animation-delay: -5s; }
+        
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(20px, 40px); } }
 
+        /* --- ANIMACIÓN DE ENTRADA (CASCADA) --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* --- HEADER --- */
         header {
             text-align: center; padding: 50px 20px 30px; width: 100%; max-width: 600px; z-index: 2;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
         .banner-wrapper {
             position: relative; margin-bottom: 25px; border-radius: 20px; overflow: hidden;
@@ -83,16 +89,30 @@
 
         h1 {
             font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; color: #fff;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 8px; letter-spacing: -0.02em;
         }
         .verified-badge { width: 22px; height: 22px; color: #3b82f6; }
-        .subtitle { color: var(--text-muted); font-size: 1rem; font-weight: 400; max-width: 400px; margin: 0 auto; }
+        .subtitle { color: var(--text-muted); font-size: 1rem; font-weight: 400; max-width: 400px; margin: 0 auto; letter-spacing: 0.01em; }
 
         /* --- CONTENEDOR --- */
         .container {
             width: 100%; max-width: 550px; padding: 0 20px 60px;
             display: flex; flex-direction: column; gap: 16px; z-index: 2;
         }
+        
+        /* Animación escalonada para los elementos del contenedor */
+        .container > * {
+            opacity: 0; /* Ocultos al inicio */
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .container > *:nth-child(1) { animation-delay: 0.1s; } /* Label */
+        .container > *:nth-child(2) { animation-delay: 0.2s; } /* Card 1 */
+        .container > *:nth-child(3) { animation-delay: 0.3s; } /* Card 2 */
+        .container > *:nth-child(4) { animation-delay: 0.4s; } /* Card 3 */
+        .container > *:nth-child(5) { animation-delay: 0.5s; } /* Label */
+        .container > *:nth-child(6) { animation-delay: 0.6s; } /* Card 4 */
+        .container > *:nth-child(7) { animation-delay: 0.7s; } /* Card 5 */
+
         .section-label {
             font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
             color: #555; margin-top: 25px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;
@@ -107,9 +127,8 @@
             padding: 18px 22px;
             text-decoration: none; color: inherit;
             display: flex; align-items: center; gap: 20px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s;
             position: relative; overflow: hidden;
-            /* Indicador de Estado lateral */
             border-left: 3px solid transparent; 
         }
 
@@ -117,19 +136,30 @@
         .card-tg { border-left-color: var(--tg-color); }
         .card-wa { border-left-color: var(--wa-color); }
 
-        .card:hover { transform: translateY(-3px); }
-
-        /* Efecto Glow en Hover */
+        /* Efecto Glow Atmosférico en Hover */
         .card-tg:hover {
             box-shadow: 0 10px 40px -10px rgba(34, 158, 217, 0.2);
             border-color: rgba(34, 158, 217, 0.3);
-            background: linear-gradient(90deg, rgba(34,158,217,0.05) 0%, rgba(20,20,20,0.6) 50%);
+            background: linear-gradient(90deg, rgba(34,158,217,0.08) 0%, rgba(20,20,20,0.6) 100%);
         }
         .card-wa:hover {
             box-shadow: 0 10px 40px -10px rgba(37, 211, 102, 0.15);
             border-color: rgba(37, 211, 102, 0.3);
-            background: linear-gradient(90deg, rgba(37,211,102,0.05) 0%, rgba(20,20,20,0.6) 50%);
+            background: linear-gradient(90deg, rgba(37,211,102,0.08) 0%, rgba(20,20,20,0.6) 100%);
         }
+        
+        .card:hover { transform: translateY(-4px); }
+
+        /* Efecto Destello (Shine) al pasar el mouse */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+        .card:hover::before { left: 100%; }
 
         /* Icono Temático (Izquierda) */
         .icon-box {
@@ -139,40 +169,43 @@
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
             border: 1px solid rgba(255,255,255,0.05);
-            color: #ccc; transition: transform 0.3s;
+            color: #ccc; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .card:hover .icon-box { transform: scale(1.1) rotate(5deg); color: #fff; }
         .icon-box svg { width: 24px; height: 24px; stroke-width: 1.8; }
 
         /* Textos */
         .content { flex-grow: 1; }
-        .card h3 { font-size: 1.05rem; margin-bottom: 4px; font-weight: 600; color: #fff; }
+        .card h3 { font-size: 1.05rem; margin-bottom: 4px; font-weight: 600; color: #fff; letter-spacing: 0.01em; }
         .card p { font-size: 0.85rem; color: #888; line-height: 1.3; }
 
         /* Icono de Plataforma (Derecha) */
         .platform-icon {
-            opacity: 0.5; transition: all 0.3s; width: 24px; height: 24px;
+            opacity: 0.5; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 24px; height: 24px;
         }
         .card-tg .platform-icon { color: var(--tg-color); }
         .card-wa .platform-icon { color: var(--wa-color); }
         
-        .card:hover .platform-icon { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 5px currentColor); }
+        .card:hover .platform-icon { 
+            opacity: 1; 
+            transform: scale(1.2) rotate(-5deg); 
+            filter: drop-shadow(0 0 8px currentColor); 
+        }
 
         /* Botón QR */
         .qr-trigger {
             background: transparent; border: none; color: #555; cursor: pointer;
-            padding: 8px; border-radius: 8px; transition: all 0.2s; margin-right: -10px;
-            /* Asegurar que el botón QR esté encima de la tarjeta para ser clickeable */
-            position: relative; z-index: 10; 
+            padding: 8px; border-radius: 8px; transition: all 0.2s; margin-right: -8px;
+            position: relative; z-index: 10;
         }
-        .qr-trigger:hover { color: #fff; background: rgba(255,255,255,0.1); }
-        
-        /* Asegurar que los botones SVG sean visibles */
+        .qr-trigger:hover { color: #fff; background: rgba(255,255,255,0.1); transform: scale(1.1); }
         .qr-trigger svg { width: 20px; height: 20px; stroke: currentColor; fill: none; }
 
-
         /* Footer */
-        footer { margin-top: auto; padding: 40px; color: #444; font-size: 0.8rem; text-align: center; }
+        footer { 
+            margin-top: auto; padding: 40px; color: #444; font-size: 0.8rem; text-align: center; 
+            animation: fadeInUp 1s ease-out forwards; animation-delay: 0.8s; opacity: 0;
+        }
 
         /* Modal QR */
         .modal-overlay {
@@ -182,16 +215,22 @@
             opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
+        
         .qr-card {
             background: #111; border: 1px solid #333; border-radius: 24px; padding: 40px;
-            text-align: center; transform: scale(0.9); transition: transform 0.3s;
+            text-align: center; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
         }
         .modal-overlay.active .qr-card { transform: scale(1); }
+        
         #qrcode-display { background: white; padding: 15px; border-radius: 12px; margin: 20px auto; width: fit-content; }
+        
         .close-btn {
             background: #333; color: white; border: none; padding: 12px 30px;
             border-radius: 50px; font-weight: 600; cursor: pointer; margin-top: 15px;
+            transition: background 0.2s;
         }
+        .close-btn:hover { background: #555; }
 
     </style>
 </head>
