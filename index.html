@@ -3,114 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JJMex Intelligence | Bots de Monitoreo</title>
+    <title>JJMex Intelligence Hub | Network Status</title>
     <style>
         :root {
-            --bg: #121417;
-            --card: #1E2329;
-            --text: #ffffff;
-            --accent-metro: #F04E98; /* Rosa Metro */
-            --accent-vial: #34D399;  /* Verde Vial */
-            --telegram: #229ED9;
+            /* Palette Dark Elite */
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --border: #30363d;
+            --telegram-color: #2481cc;
+            
+            /* Status Colors */
+            --online: #238636;
+            --busy: #d29922;
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
-            align-items: center;
             min-height: 100vh;
         }
 
+        /* --- HEADER --- */
         header {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px 40px;
+            background: radial-gradient(circle at top, #1f2428 0%, transparent 70%);
         }
 
-        h1 { font-size: 2.5rem; margin-bottom: 10px; letter-spacing: -1px; }
-        p { color: #9CA3AF; font-size: 1.1rem; max-width: 600px; line-height: 1.6; }
+        .brand-badge {
+            background: rgba(56, 139, 253, 0.15);
+            color: #58a6ff;
+            padding: 5px 12px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
 
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- GRID DE BOTS --- */
         .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 800px;
-            width: 90%;
-            padding-bottom: 50px;
+            gap: 25px;
         }
 
         .card {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid #333;
-            transition: transform 0.2s;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        .card:hover { transform: translateY(-5px); border-color: #555; }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--text-muted);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
-        .icon { font-size: 3rem; margin-bottom: 20px; display: block; }
-        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .icon {
+            font-size: 2rem;
+            background: rgba(255,255,255,0.05);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        /* Status Dot Pulsante */
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--online);
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(35, 134, 54, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(35, 134, 54, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(35, 134, 54, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(35, 134, 54, 0); }
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            flex-grow: 1; /* Empuja el botón al fondo */
+        }
+
         .btn {
-            display: inline-block;
-            background-color: var(--telegram);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: rgba(36, 129, 204, 0.1);
+            color: #4da3ff;
             text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: opacity 0.2s;
-            width: 80%;
-            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1px solid rgba(36, 129, 204, 0.3);
+            transition: all 0.2s;
         }
-        
-        .btn:hover { opacity: 0.9; }
 
-        /* Estilos específicos */
-        .metro-border { border-top: 4px solid var(--accent-metro); }
-        .vial-border { border-top: 4px solid var(--accent-vial); }
+        .btn:hover {
+            background-color: var(--telegram-color);
+            color: white;
+            border-color: var(--telegram-color);
+        }
 
+        .btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* --- FOOTER --- */
         footer {
             margin-top: auto;
-            padding: 20px;
-            color: #555;
-            font-size: 0.9rem;
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .tech-stack {
+            margin-top: 10px;
+            opacity: 0.6;
+            font-family: monospace;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header>
+        <div class="brand-badge">SYSTEMS OPERATIONAL</div>
         <h1>JJMex Intelligence</h1>
-        <p>Sistema de monitoreo automatizado de alta precisión para la movilidad en la CDMX y carreteras federales.</p>
+        <p class="subtitle">Infraestructura de monitoreo satelital automatizada. Sincronizando el flujo urbano y la inteligencia de datos.</p>
     </header>
 
     <div class="container">
-        <div class="card metro-border">
-            <span class="icon">🚇</span>
-            <h2>Monitor Metro CDMX</h2>
-            <p>Reportes en tiempo real sobre retrasos, afluencia y estado de las 12 líneas del metro. Detección de incidentes verificada.</p>
-            <a href="https://t.me/TU_ENLACE_AQUI" class="btn">
-                Unirse al Canal Metro 🚀
+        
+        <div class="card">
+            <div class="card-header">
+                <div class="icon">🚇</div>
+                <div class="status-dot" title="Sistema Online"></div>
+            </div>
+            <h3>Urban Flow (Metro)</h3>
+            <p>Vigilancia en tiempo real de las 12 líneas del Metro CDMX. Detección de incidentes, marcha lenta y reportes de usuarios.</p>
+            <a href="https://t.me/TU_ENLACE_METRO_AQUI" target="_blank" class="btn">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.85 5.18-4.68c.223-.198-.054-.306-.346-.106l-6.4 4.022L4.735 11.7c-.753-.26-.745-.718.096-1.07l10.88-4.197c.535-.192 1.005.138.183 2.788z"/></svg>
+                Unirse al Canal
             </a>
         </div>
 
-        <div class="card vial-border">
-            <span class="icon">🛣️</span>
-            <h2>Monitor Vial Elite</h2>
-            <p>Análisis de la Autopista del Sol (Cuernavaca - CDMX). Alertas de bloqueos, accidentes y tiempos estimados vía satélite.</p>
-            <a href="https://t.me/TU_ENLACE_AQUI" class="btn">
-                Unirse al Canal Vial 🚗
+        <div class="card">
+            <div class="card-header">
+                <div class="icon">🛣️</div>
+                <div class="status-dot" title="Sistema Online"></div>
+            </div>
+            <h3>Highway Intelligence</h3>
+            <p>Monitor táctico de la Autopista del Sol y Paso Express. Cálculo de tiempos Waze y alertas de bloqueos verificados.</p>
+            <a href="https://t.me/TU_ENLACE_VIAL_AQUI" target="_blank" class="btn">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.85 5.18-4.68c.223-.198-.054-.306-.346-.106l-6.4 4.022L4.735 11.7c-.753-.26-.745-.718.096-1.07l10.88-4.197c.535-.192 1.005.138.183 2.788z"/></svg>
+                Unirse al Canal
             </a>
         </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="icon">🛡️</div>
+                <div class="status-dot" title="Sistema Online"></div>
+            </div>
+            <h3>Drive-Check</h3>
+            <p>Gestión inteligente de restricciones vehiculares y programa Hoy No Circula. Evita multas con alertas diarias.</p>
+            <a href="https://t.me/TU_ENLACE_AQUI" target="_blank" class="btn">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.85 5.18-4.68c.223-.198-.054-.306-.346-.106l-6.4 4.022L4.735 11.7c-.753-.26-.745-.718.096-1.07l10.88-4.197c.535-.192 1.005.138.183 2.788z"/></svg>
+                Unirse al Bot
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="icon">☀️</div>
+                <div class="status-dot" title="Sistema Online"></div>
+            </div>
+            <h3>Atmo-Scan</h3>
+            <p>Monitoreo meteorológico avanzado y radiación UV en tiempo real para la toma de decisiones al aire libre.</p>
+            <a href="https://t.me/TU_ENLACE_AQUI" target="_blank" class="btn">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.85 5.18-4.68c.223-.198-.054-.306-.346-.106l-6.4 4.022L4.735 11.7c-.753-.26-.745-.718.096-1.07l10.88-4.197c.535-.192 1.005.138.183 2.788z"/></svg>
+                Unirse al Canal
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="icon">🐺</div>
+                <div class="status-dot" title="Sistema Online"></div>
+            </div>
+            <h3>Mindset Engine</h3>
+            <p>Generación automatizada de arte visual estoico y posters de disciplina para mantener el enfoque.</p>
+            <a href="https://t.me/TU_ENLACE_AQUI" target="_blank" class="btn">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.85 5.18-4.68c.223-.198-.054-.306-.346-.106l-6.4 4.022L4.735 11.7c-.753-.26-.745-.718.096-1.07l10.88-4.197c.535-.192 1.005.138.183 2.788z"/></svg>
+                Unirse al Canal
+            </a>
+        </div>
+
     </div>
 
     <footer>
-        © 2024 JJMex Bot Systems. Powered by GitHub & Python.
+        <p>© 2026 JJMex Intelligence Hub. All systems nominal.</p>
+        <div class="tech-stack">Powered by Python • GitHub Actions • Telegram API</div>
     </footer>
 
 </body>
