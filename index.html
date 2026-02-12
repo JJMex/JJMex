@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JJMex Intelligence Hub | Network Status</title>
+    <title>JJMex Community | Enlaces Oficiales</title>
     <style>
         :root {
-            /* Palette Dark Elite */
+            /* Palette Dark Minimalist */
             --bg-color: #0d1117;
             --card-bg: #161b22;
-            --text-main: #c9d1d9;
+            --text-main: #e6edf3;
             --text-muted: #8b949e;
             --border: #30363d;
             
-            /* Brands */
+            /* Brand Colors */
             --telegram: #229ED9;
             --whatsapp: #25D366;
-            
-            /* Status */
-            --online: #238636;
+            --accent: #58a6ff;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,257 +29,207 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            align-items: center;
         }
 
         /* --- HEADER --- */
         header {
             text-align: center;
             padding: 80px 20px 40px;
+            width: 100%;
             background: radial-gradient(circle at top, #1f2428 0%, transparent 70%);
         }
 
-        .brand-badge {
-            background: rgba(56, 139, 253, 0.15);
-            color: #58a6ff;
-            padding: 5px 12px;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid rgba(88, 166, 255, 0.3);
-            display: inline-block;
-            margin-bottom: 20px;
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #21262d;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 2px solid var(--border);
         }
 
         h1 {
-            font-size: 3rem;
-            font-weight: 800;
+            font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 10px;
-            letter-spacing: -1px;
-            color: #ffffff;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
             color: var(--text-muted);
             font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
-        /* --- SECCIONES --- */
-        .section-title {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            margin-top: 40px;
-        }
-
+        /* --- CONTENEDOR PRINCIPAL --- */
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 600px; /* Ancho más estrecho tipo Linktree */
             padding: 0 20px 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        /* --- CARDS --- */
+        .section-label {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-top: 20px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* --- TARJETAS DE GRUPO --- */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 25px;
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            border-radius: 16px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
             display: flex;
-            flex-direction: column;
-            position: relative;
+            align-items: center;
+            gap: 20px;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             border-color: var(--text-muted);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background-color: #1c2128;
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .icon {
-            font-size: 2rem;
-            background: rgba(255,255,255,0.05);
+        .icon-box {
             width: 50px;
             height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-        }
-
-        /* Status Dot Pulsante (Para Bots) */
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background-color: var(--online);
-            border-radius: 50%;
-            box-shadow: 0 0 0 0 rgba(35, 134, 54, 0.7);
-            animation: pulse 2s infinite;
-        }
-
-        /* Status Static (Para Comunidad) */
-        .status-static {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            padding: 2px 8px;
+            background: rgba(255,255,255,0.05);
             border-radius: 12px;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(35, 134, 54, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(35, 134, 54, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(35, 134, 54, 0); }
-        }
-
-        h3 { font-size: 1.2rem; margin-bottom: 8px; color: #fff; }
-        p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 25px; flex-grow: 1; }
-
-        /* --- BOTONES --- */
-        .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .content {
+            flex-grow: 1;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* --- ETIQUETAS Y DETALLES --- */
+        .tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 100px;
             font-weight: 600;
-            transition: all 0.2s;
+            text-transform: uppercase;
         }
 
-        .btn-tg {
-            background-color: rgba(34, 158, 217, 0.1);
-            color: var(--telegram);
-            border: 1px solid rgba(34, 158, 217, 0.3);
-        }
-        .btn-tg:hover { background-color: var(--telegram); color: white; }
+        .tg-tag { background: rgba(34, 158, 217, 0.15); color: var(--telegram); }
+        .wa-tag { background: rgba(37, 211, 102, 0.15); color: var(--whatsapp); }
 
-        .btn-wa {
-            background-color: rgba(37, 211, 102, 0.1);
-            color: var(--whatsapp);
-            border: 1px solid rgba(37, 211, 102, 0.3);
+        .arrow {
+            color: var(--text-muted);
+            opacity: 0.5;
         }
-        .btn-wa:hover { background-color: var(--whatsapp); color: white; }
-
-        .btn svg { width: 20px; height: 20px; fill: currentColor; }
 
         /* --- FOOTER --- */
         footer {
             margin-top: auto;
             text-align: center;
             padding: 40px;
-            border-top: 1px solid var(--border);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            opacity: 0.7;
         }
+
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand-badge">SYSTEMS OPERATIONAL</div>
-        <h1>JJMex Intelligence</h1>
-        <p class="subtitle">Infraestructura digital de monitoreo y desarrollo. Sincronizando la movilidad urbana y el potencial humano.</p>
+        <div class="profile-pic">🇲🇽</div>
+        <h1>JJMex Community</h1>
+        <p class="subtitle">Red de inteligencia colectiva y crecimiento personal. Únete a nuestros canales oficiales.</p>
     </header>
 
-    <div class="section-title">Sistemas Autónomos & IA (Telegram)</div>
     <div class="container">
         
-        <div class="card">
-            <div class="card-header">
-                <div class="icon">🚇</div>
-                <div class="status-dot" title="Bot Activo 24/7"></div>
+        <div class="section-label">Canales Oficiales (Telegram)</div>
+
+        <a href="https://t.me/AlertasMetroCDMX" target="_blank" class="card">
+            <div class="icon-box">🚇</div>
+            <div class="content">
+                <h3>Alertas Metro CDMX <span class="tag tg-tag">Telegram</span></h3>
+                <p>Reportes en tiempo real sobre el estatus de movilidad. Comunidad activa para anticipar retrasos en las 12 líneas.</p>
             </div>
-            <h3>Metro CDMX Alert</h3>
-            <p>Red de inteligencia colectiva. Sincronización en tiempo real entre reportes ciudadanos y nuestro <b>Bot Autónomo</b> de vigilancia para las 12 líneas.</p>
-            <a href="https://t.me/AlertasMetroCDMX" target="_blank" class="btn btn-tg">
-                <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                Unirse a Alertas Metro
-            </a>
-        </div>
+            <div class="arrow">➜</div>
+        </a>
 
-        <div class="card">
-            <div class="card-header">
-                <div class="icon">🛰️</div>
-                <div class="status-dot" title="Bot Activo 24/7"></div>
+        <a href="https://t.me/CVACDMX" target="_blank" class="card">
+            <div class="icon-box">🛣️</div>
+            <div class="content">
+                <h3>Alertas Viales (ACA-CVA-CDMX) <span class="tag tg-tag">Telegram</span></h3>
+                <p>Monitor de la Autopista del Sol. Apoyo comunitario para reportar incidentes, bloqueos y tráfico en el trayecto.</p>
             </div>
-            <h3>Highway Intelligence</h3>
-            <p>Sistema táctico para la Ruta del Sol (ACA-CVA-CDMX). Fusión de alertas comunitarias y análisis satelital automatizado para detección de incidentes.</p>
-            <a href="https://t.me/CVACDMX" target="_blank" class="btn btn-tg">
-                <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                Unirse a Alertas Viales
-            </a>
-        </div>
+            <div class="arrow">➜</div>
+        </a>
 
-        <div class="card">
-            <div class="card-header">
-                <div class="icon">🐺</div>
-                <div class="status-dot" title="Bot Activo 24/7"></div>
+        <a href="https://t.me/MenteExito" target="_blank" class="card">
+            <div class="icon-box">🐺</div>
+            <div class="content">
+                <h3>Mente & Éxito 365 <span class="tag tg-tag">Telegram</span></h3>
+                <p>Círculo de alto rendimiento. Dosis diaria de estoicismo, anécdotas y tips para construir tu mejor versión.</p>
             </div>
-            <h3>Mindset & Growth 365</h3>
-            <p>Espacio de alto rendimiento. Estrategias de optimización mental, estoicismo visual y tips para alcanzar tu mejor versión diaria.</p>
-            <a href="https://t.me/MenteExito" target="_blank" class="btn btn-tg">
-                <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                Unirse a Mindset
-            </a>
-        </div>
+            <div class="arrow">➜</div>
+        </a>
 
-    </div>
+        <div class="section-label">Red de Apoyo (WhatsApp)</div>
 
-    <div class="section-title">Red de Apoyo Comunitario (WhatsApp)</div>
-    <div class="container">
-
-        <div class="card">
-            <div class="card-header">
-                <div class="icon">🚙</div>
-                <div class="status-static">Comunidad</div>
+        <a href="#" class="card">
+            <div class="icon-box">🚙</div>
+            <div class="content">
+                <h3>Monitor CVA-CDMX (Grupo 1) <span class="tag wa-tag">WhatsApp</span></h3>
+                <p>Grupo exclusivo para reportes viales en el tramo Cuernavaca - Ciudad de México.</p>
             </div>
-            <h3>Monitor CVA-CDMX (Grupo 1)</h3>
-            <p>Canal exclusivo para el tramo Cuernavaca - CDMX. Reportes viales 100% humanos en tiempo real sin intervención de bots.</p>
-            <a href="#" class="btn btn-wa">
-                <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                Próximamente
-            </a>
-        </div>
+            <div class="arrow">➜</div>
+        </a>
 
-        <div class="card">
-            <div class="card-header">
-                <div class="icon">🚙</div>
-                <div class="status-static">Comunidad</div>
+        <a href="#" class="card">
+            <div class="icon-box">🚙</div>
+            <div class="content">
+                <h3>Monitor CVA-CDMX (Grupo 2) <span class="tag wa-tag">WhatsApp</span></h3>
+                <p>Canal de respaldo comunitario para alertas de tráfico y seguridad vial.</p>
             </div>
-            <h3>Monitor CVA-CDMX (Grupo 2)</h3>
-            <p>Canal de respaldo para la comunidad de la autopista. Comparte y recibe alertas de tráfico, clima y accidentes al momento.</p>
-            <a href="#" class="btn btn-wa">
-                <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                Próximamente
-            </a>
-        </div>
+            <div class="arrow">➜</div>
+        </a>
 
     </div>
 
     <footer>
-        <p>© 2026 JJMex Intelligence Hub. All systems nominal.</p>
+        <p>© 2026 JJMex Community. Todos los derechos reservados.</p>
     </footer>
 
 </body>
