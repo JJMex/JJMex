@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#050505"> <title>JJMex Community | Hub Oficial</title>
-    <meta name="description" content="Red de inteligencia vial, reportes del Metro CDMX y crecimiento personal. Únete a los canales oficiales.">
+    <meta name="theme-color" content="#050505">
+    
+    <title>JJMex Community | Hub Oficial</title>
+    <meta name="description" content="Red de inteligencia vial, reportes del Metro CDMX y crecimiento personal.">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jjmex.github.io/JJMex/">
@@ -12,37 +14,24 @@
     <meta property="og:description" content="Únete a la red de reportes viales, Metro CDMX y motivación diaria.">
     <meta property="og:image" content="https://raw.githubusercontent.com/JJMex/JJMex/main/Banner.png">
 
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://jjmex.github.io/JJMex/">
-    <meta property="twitter:title" content="JJMex Community | Hub Oficial">
-    <meta property="twitter:description" content="Únete a la red de reportes viales, Metro CDMX y motivación diaria.">
-    <meta property="twitter:image" content="https://raw.githubusercontent.com/JJMex/JJMex/main/Banner.png">
-
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇲🇽</text></svg>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --bg-dark: #050505;
-            --glass-bg: rgba(22, 27, 34, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text-main: #ffffff;
-            --text-muted: #949ba4;
-            --accent-glow: rgba(56, 139, 253, 0.15);
-            --telegram: #229ED9;
-            --whatsapp: #25D366;
+            --glass-bg: rgba(20, 20, 20, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-main: #f0f0f0;
+            --text-muted: #888888;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        /* --- 3. SCROLLBAR PERSONALIZADO --- */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
 
         body {
             font-family: 'Outfit', sans-serif;
@@ -55,169 +44,165 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* FONDO ANIMADO */
+        /* --- 1. TEXTURA DE RUIDO (CINEMATIC LOOK) --- */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- FONDO ANIMADO --- */
         .ambient-light {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(circle at 50% 0%, #1a202c 0%, #050505 70%);
+            top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: radial-gradient(circle at 50% 0%, #111111 0%, #050505 80%);
         }
         
         .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 20s infinite ease-in-out;
+            position: absolute; border-radius: 50%;
+            filter: blur(100px); opacity: 0.3;
+            animation: float 25s infinite ease-in-out;
         }
-        
-        .orb-1 { width: 400px; height: 400px; background: #1a365d; top: -100px; left: -100px; animation-delay: 0s; }
-        .orb-2 { width: 300px; height: 300px; background: #2f855a; bottom: 10%; right: -50px; animation-delay: -5s; opacity: 0.2; }
+        .orb-1 { width: 400px; height: 400px; background: #1e3a8a; top: -150px; left: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: #064e3b; bottom: 0; right: -50px; opacity: 0.15; animation-delay: -5s; }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(30px, 50px); }
-        }
+        @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(20px, 40px); } }
 
-        /* HEADER */
+        /* --- HEADER --- */
         header {
             text-align: center;
-            padding: 60px 20px 30px;
-            width: 100%;
-            max-width: 700px;
+            padding: 40px 20px 20px;
+            width: 100%; max-width: 600px;
             z-index: 2;
-            animation: fadeIn 1s ease-out;
         }
 
-        .banner-container {
+        /* --- 2. BANNER FUSIONADO --- */
+        .banner-wrapper {
             position: relative;
-            border-radius: 24px;
-            padding: 4px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-            transition: transform 0.3s;
+            margin-bottom: 25px;
+            border-radius: 20px;
+            overflow: hidden; /* Importante para la máscara */
+            box-shadow: 0 20px 60px -20px rgba(0,0,0,0.8);
+            border: 1px solid var(--glass-border);
         }
-
-        .banner-container:hover { transform: scale(1.02); }
 
         .banner-img {
             display: block; width: 100%; height: auto;
-            border-radius: 20px; filter: brightness(0.95) contrast(1.1); 
+            /* Máscara de degradado para que se funda abajo */
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
 
         h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 8px;
-            background: linear-gradient(to right, #fff, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+            font-size: 2.2rem; font-weight: 700; margin-bottom: 8px;
+            letter-spacing: -0.5px; color: #fff;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        
+        /* Badge de Verificado */
+        .verified-badge {
+            width: 20px; height: 20px; fill: #3b82f6;
         }
 
         .subtitle {
-            color: var(--text-muted); font-size: 1.1rem; font-weight: 300;
+            color: var(--text-muted); font-size: 1rem; font-weight: 400; max-width: 400px; margin: 0 auto;
         }
 
-        /* CONTENEDOR */
+        /* --- CONTENEDOR --- */
         .container {
-            width: 100%; max-width: 600px; padding: 0 20px 60px;
-            display: flex; flex-direction: column; gap: 16px; z-index: 2;
+            width: 100%; max-width: 550px; padding: 0 20px 60px;
+            display: flex; flex-direction: column; gap: 14px; z-index: 2;
         }
 
         .section-label {
-            font-size: 0.75rem; font-weight: 600; letter-spacing: 2px;
-            text-transform: uppercase; color: var(--text-muted);
-            margin-top: 30px; margin-bottom: 10px; padding-left: 10px;
-            opacity: 0.7; display: flex; align-items: center; gap: 10px;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; color: #555;
+            margin-top: 30px; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
-        
-        .section-label::after {
-            content: ''; height: 1px; flex-grow: 1;
-            background: linear-gradient(to right, var(--glass-border), transparent);
-        }
+        .section-label::after { content: ''; height: 1px; flex-grow: 1; background: #222; }
 
-        /* TARJETAS */
+        /* --- TARJETAS ELITE --- */
         .card {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 22px;
+            border-radius: 16px;
+            padding: 18px 20px;
             text-decoration: none; color: inherit;
-            display: flex; align-items: center; gap: 20px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; align-items: center; gap: 18px;
+            transition: all 0.2s ease;
             position: relative; overflow: hidden;
-            opacity: 0; transform: translateY(20px);
-            animation: slideUp 0.6s ease-out forwards;
+            
+            /* Animación suave */
+            opacity: 0; transform: translateY(10px);
+            animation: slideUp 0.5s ease-out forwards;
         }
 
-        .card:nth-child(2) { animation-delay: 0.1s; }
-        .card:nth-child(3) { animation-delay: 0.2s; }
-        .card:nth-child(4) { animation-delay: 0.3s; }
-        .card:nth-child(6) { animation-delay: 0.4s; }
-        .card:nth-child(7) { animation-delay: 0.5s; }
-
-        .card::before {
-            content: ''; position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
-            opacity: 0; transition: opacity 0.3s;
-        }
+        /* Retrasos de animación escalonados */
+        .card:nth-of-type(1) { animation-delay: 0.1s; }
+        .card:nth-of-type(2) { animation-delay: 0.2s; }
+        .card:nth-of-type(3) { animation-delay: 0.3s; }
+        .card:nth-of-type(4) { animation-delay: 0.4s; }
+        .card:nth-of-type(5) { animation-delay: 0.5s; }
 
         .card:hover {
-            transform: translateY(-4px) scale(1.01);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.6);
-            background: rgba(30, 35, 45, 0.8);
-        }
-        .card:hover::before { opacity: 1; }
-
-        /* ICONOS */
-        .icon-box {
-            width: 52px; height: 52px;
             background: rgba(255,255,255,0.03);
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem; flex-shrink: 0;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s;
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
         }
-        .card:hover .icon-box { transform: scale(1.1) rotate(5deg); }
+
+        /* --- 3. ICONOS SVG (Reemplazo de Emojis) --- */
+        .icon-box {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #ccc;
+        }
+        
+        .icon-box svg { width: 22px; height: 22px; stroke-width: 2; }
+        
+        /* Colores específicos de iconos por tema */
+        .icon-metro { color: #F04E98; }
+        .icon-road { color: #F59E0B; }
+        .icon-mind { color: #8B5CF6; }
+        .icon-wa { color: #25D366; }
 
         .content { flex-grow: 1; }
         
         .card h3 {
-            font-size: 1.15rem; margin-bottom: 6px; font-weight: 600;
-            display: flex; align-items: center; gap: 8px; color: #fff;
+            font-size: 1rem; margin-bottom: 4px; font-weight: 600; color: #fff;
+            display: flex; align-items: center; gap: 8px;
         }
 
         .card p {
-            font-size: 0.9rem; color: var(--text-muted);
-            line-height: 1.4; font-weight: 300;
+            font-size: 0.85rem; color: #888;
+            line-height: 1.35; font-weight: 400;
         }
 
-        /* TAGS */
-        .tag {
-            font-size: 0.65rem; padding: 3px 10px; border-radius: 12px;
-            font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;
+        /* TAGS PEQUEÑOS */
+        .tag-pill {
+            font-size: 0.6rem; padding: 2px 6px; border-radius: 6px;
+            background: rgba(255,255,255,0.05); color: #666; font-weight: 600;
         }
-        .tg-tag { background: rgba(34, 158, 217, 0.1); color: var(--telegram); border: 1px solid rgba(34, 158, 217, 0.2); }
-        .wa-tag { background: rgba(37, 211, 102, 0.1); color: var(--whatsapp); border: 1px solid rgba(37, 211, 102, 0.2); }
 
-        .arrow {
-            color: var(--text-muted); opacity: 0.3; font-size: 1.2rem; transition: all 0.3s;
-        }
-        .card:hover .arrow { opacity: 1; transform: translateX(5px); color: #fff; }
+        .arrow { opacity: 0.2; font-size: 1rem; transition: transform 0.2s; }
+        .card:hover .arrow { opacity: 0.8; transform: translateX(3px); }
 
         footer {
-            margin-top: auto; text-align: center; padding: 40px;
-            font-size: 0.85rem; color: var(--text-muted); opacity: 0.6; z-index: 2;
+            margin-top: auto; padding: 40px; color: #444; font-size: 0.8rem;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(15px, 25px); } }
 
     </style>
 </head>
@@ -227,63 +212,79 @@
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
     </div>
+    <div class="noise-overlay"></div>
 
     <header>
-        <div class="banner-container">
+        <div class="banner-wrapper">
             <img src="https://raw.githubusercontent.com/JJMex/JJMex/main/Banner.png" alt="JJMex Banner" class="banner-img">
         </div>
         
-        <h1>JJMex Community</h1>
-        <p class="subtitle">Hub oficial de inteligencia vial, movilidad y desarrollo personal.</p>
+        <h1>
+            JJMex Community
+            <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+            </svg>
+        </h1>
+        <p class="subtitle">Hub oficial de inteligencia vial y movilidad.</p>
     </header>
 
     <div class="container">
         
-        <div class="section-label">Canales Inteligentes (Telegram)</div>
+        <div class="section-label">Canales Inteligentes</div>
 
         <a href="https://t.me/AlertasMetroCDMX" target="_blank" class="card">
-            <div class="icon-box">🚇</div>
+            <div class="icon-box icon-metro">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M2 8h20"/><path d="M3.5 8a2.5 2.5 0 0 1 0-5"/></svg>
+            </div>
             <div class="content">
-                <h3>Alertas metro CDMX <span class="tag tg-tag">Telegram</span></h3>
-                <p>Reporte en tiempo real del sistema de movilización. Información conjunta de las 12 líneas.</p>
+                <h3>Alertas metro CDMX</h3>
+                <p>Reportes en tiempo real de las 12 líneas.</p>
             </div>
             <div class="arrow">➜</div>
         </a>
 
         <a href="https://t.me/CVACDMX" target="_blank" class="card">
-            <div class="icon-box">🛣️</div>
+            <div class="icon-box icon-road">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            </div>
             <div class="content">
-                <h3>Alertas viales <span class="tag tg-tag">Telegram</span></h3>
-                <p>Monitor de la Autopista del Sol y tramo Acapulco - Cuernavaca - CDMX. Apoyo comunitario.</p>
+                <h3>Alertas viales</h3>
+                <p>Monitor Autopista del Sol y CDMX.</p>
             </div>
             <div class="arrow">➜</div>
         </a>
 
         <a href="https://t.me/MenteExito" target="_blank" class="card">
-            <div class="icon-box">🐺</div>
+            <div class="icon-box icon-mind">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
             <div class="content">
-                <h3>Mente & Exito 365 <span class="tag tg-tag">Telegram</span></h3>
-                <p>Círculo de alto rendimiento. Imágenes, anécdotas y estrategias para tu mejor versión.</p>
+                <h3>Mente & Exito 365</h3>
+                <p>Estrategias y mindset de alto rendimiento.</p>
             </div>
             <div class="arrow">➜</div>
         </a>
 
-        <div class="section-label">Red Comunitaria (WhatsApp)</div>
+        <div class="section-label">Red Comunitaria</div>
 
         <a href="#" class="card">
-            <div class="icon-box">🚙</div>
+            <div class="icon-box icon-wa">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            </div>
             <div class="content">
-                <h3>Alertas viales (Grupo 1) <span class="tag wa-tag">WhatsApp</span></h3>
-                <p>Reportes exclusivos del tramo Cuernavaca a Ciudad de México.</p>
+                <h3>Monitor CVA-CDMX <span class="tag-pill">G1</span></h3>
+                <p>Reportes exclusivos del tramo carretero.</p>
             </div>
             <div class="arrow">➜</div>
         </a>
 
         <a href="#" class="card">
-            <div class="icon-box">🚙</div>
+            <div class="icon-box icon-wa">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            </div>
             <div class="content">
-                <h3>Alertas viales (Grupo 2) <span class="tag wa-tag">WhatsApp</span></h3>
-                <p>Grupo de respaldo para reportes de tráfico en tiempo real.</p>
+                <h3>Monitor CVA-CDMX <span class="tag-pill">G2</span></h3>
+                <p>Grupo de respaldo y tráfico en vivo.</p>
             </div>
             <div class="arrow">➜</div>
         </a>
@@ -291,7 +292,7 @@
     </div>
 
     <footer>
-        <p>© 2026 JJMex Community. All systems operational.</p>
+        <p>© 2026 JJMex Systems.</p>
     </footer>
 
 </body>
