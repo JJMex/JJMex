@@ -20,6 +20,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
     <style>
         :root {
             --bg-dark: #050505;
@@ -27,8 +29,6 @@
             --glass-border: rgba(255, 255, 255, 0.06);
             --text-main: #f0f0f0;
             --text-muted: #888888;
-            --accent-blue: #3b82f6;
-            --accent-green: #10b981;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,186 +44,128 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* --- 1. TEXTURA DE RUIDO (CINEMATIC LOOK) --- */
-        .noise-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         /* --- FONDO ANIMADO --- */
         .ambient-light {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: radial-gradient(circle at 50% 0%, #111111 0%, #050505 80%);
         }
-        
         .orb {
-            position: absolute; border-radius: 50%;
-            filter: blur(100px); opacity: 0.3;
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
             animation: float 25s infinite ease-in-out;
         }
         .orb-1 { width: 400px; height: 400px; background: #1e3a8a; top: -150px; left: -100px; }
         .orb-2 { width: 300px; height: 300px; background: #064e3b; bottom: 0; right: -50px; opacity: 0.15; animation-delay: -5s; }
-
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
         @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(20px, 40px); } }
 
         /* --- HEADER --- */
         header {
-            text-align: center;
-            padding: 40px 20px 20px;
-            width: 100%; max-width: 600px;
-            z-index: 2;
+            text-align: center; padding: 40px 20px 20px; width: 100%; max-width: 600px; z-index: 2;
         }
-
-        /* --- 2. BANNER FUSIONADO --- */
         .banner-wrapper {
-            position: relative;
-            margin-bottom: 25px;
-            border-radius: 20px;
-            overflow: hidden; /* Importante para la máscara */
-            box-shadow: 0 20px 60px -20px rgba(0,0,0,0.8);
-            border: 1px solid var(--glass-border);
+            position: relative; margin-bottom: 25px; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 20px 60px -20px rgba(0,0,0,0.8); border: 1px solid var(--glass-border);
         }
-
         .banner-img {
             display: block; width: 100%; height: auto;
-            /* Máscara de degradado para que se funda abajo */
             -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
             mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
-
         h1 {
-            font-size: 2.2rem; font-weight: 700; margin-bottom: 8px;
-            letter-spacing: -0.5px; color: #fff;
+            font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; color: #fff;
             display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        
-        /* Badge de Verificado */
-        .verified-badge {
-            width: 20px; height: 20px; fill: #3b82f6;
-        }
-
-        .subtitle {
-            color: var(--text-muted); font-size: 1rem; font-weight: 400; max-width: 400px; margin: 0 auto;
-        }
+        .verified-badge { width: 20px; height: 20px; fill: #3b82f6; }
+        .subtitle { color: var(--text-muted); font-size: 1rem; font-weight: 400; max-width: 400px; margin: 0 auto; }
 
         /* --- CONTENEDOR --- */
         .container {
             width: 100%; max-width: 550px; padding: 0 20px 60px;
             display: flex; flex-direction: column; gap: 14px; z-index: 2;
         }
-
         .section-label {
-            font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
-            text-transform: uppercase; color: #555;
-            margin-top: 30px; margin-bottom: 10px;
-            display: flex; align-items: center; gap: 10px;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+            color: #555; margin-top: 30px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
         }
         .section-label::after { content: ''; height: 1px; flex-grow: 1; background: #222; }
 
-        /* --- TARJETAS ELITE --- */
+        /* --- TARJETAS --- */
         .card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 18px 20px;
-            text-decoration: none; color: inherit;
-            display: flex; align-items: center; gap: 18px;
-            transition: all 0.2s ease;
-            position: relative; overflow: hidden;
-            
-            /* Animación suave */
-            opacity: 0; transform: translateY(10px);
-            animation: slideUp 0.5s ease-out forwards;
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: 18px 20px; text-decoration: none; color: inherit; position: relative;
+            display: flex; align-items: center; gap: 18px; transition: all 0.2s ease;
         }
-
-        /* Retrasos de animación escalonados */
-        .card:nth-of-type(1) { animation-delay: 0.1s; }
-        .card:nth-of-type(2) { animation-delay: 0.2s; }
-        .card:nth-of-type(3) { animation-delay: 0.3s; }
-        .card:nth-of-type(4) { animation-delay: 0.4s; }
-        .card:nth-of-type(5) { animation-delay: 0.5s; }
-
         .card:hover {
-            background: rgba(255,255,255,0.03);
-            border-color: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
+            background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.15); transform: translateY(-2px);
         }
-
-        /* --- 3. ICONOS SVG (Reemplazo de Emojis) --- */
         .icon-box {
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-            border: 1px solid rgba(255,255,255,0.05);
-            color: #ccc;
+            width: 44px; height: 44px; background: rgba(255,255,255,0.02); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.05); color: #ccc;
         }
-        
         .icon-box svg { width: 22px; height: 22px; stroke-width: 2; }
+        .icon-metro { color: #F04E98; } .icon-road { color: #F59E0B; } .icon-mind { color: #8B5CF6; } .icon-wa { color: #25D366; }
         
-        /* Colores específicos de iconos por tema */
-        .icon-metro { color: #F04E98; }
-        .icon-road { color: #F59E0B; }
-        .icon-mind { color: #8B5CF6; }
-        .icon-wa { color: #25D366; }
-
         .content { flex-grow: 1; }
+        .card h3 { font-size: 1rem; margin-bottom: 4px; font-weight: 600; color: #fff; }
+        .card p { font-size: 0.85rem; color: #888; line-height: 1.35; }
+        .tag-pill { font-size: 0.6rem; padding: 2px 6px; border-radius: 6px; background: rgba(255,255,255,0.05); color: #666; font-weight: 600; }
         
-        .card h3 {
-            font-size: 1rem; margin-bottom: 4px; font-weight: 600; color: #fff;
-            display: flex; align-items: center; gap: 8px;
+        /* BOTÓN QR INTELIGENTE */
+        .qr-trigger {
+            background: transparent; border: none; color: #444; cursor: pointer;
+            padding: 8px; border-radius: 8px; transition: all 0.2s; display: flex;
         }
+        .qr-trigger:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .qr-trigger svg { width: 20px; height: 20px; }
 
-        .card p {
-            font-size: 0.85rem; color: #888;
-            line-height: 1.35; font-weight: 400;
+        /* --- MODAL QR (OCULTO) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
-
-        /* TAGS PEQUEÑOS */
-        .tag-pill {
-            font-size: 0.6rem; padding: 2px 6px; border-radius: 6px;
-            background: rgba(255,255,255,0.05); color: #666; font-weight: 600;
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .qr-card {
+            background: #111; border: 1px solid #333; border-radius: 20px; padding: 30px;
+            text-align: center; transform: scale(0.9); transition: transform 0.3s; max-width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
         }
-
-        .arrow { opacity: 0.2; font-size: 1rem; transition: transform 0.2s; }
-        .card:hover .arrow { opacity: 0.8; transform: translateX(3px); }
-
-        footer {
-            margin-top: auto; padding: 40px; color: #444; font-size: 0.8rem;
+        .modal-overlay.active .qr-card { transform: scale(1); }
+        
+        #qrcode-display { 
+            background: white; padding: 15px; border-radius: 10px; margin: 20px auto; 
+            width: fit-content; /* Ajuste automático */
         }
+        #qrcode-display img { display: block; } /* Fix layout */
+        
+        .close-btn {
+            background: #333; color: white; border: none; padding: 10px 20px;
+            border-radius: 50px; font-weight: 600; cursor: pointer; margin-top: 10px;
+        }
+        .close-btn:hover { background: #555; }
 
-        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(15px, 25px); } }
-
+        footer { margin-top: auto; padding: 40px; color: #444; font-size: 0.8rem; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="ambient-light">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
+    <div class="ambient-light"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
     <div class="noise-overlay"></div>
 
     <header>
         <div class="banner-wrapper">
             <img src="https://raw.githubusercontent.com/JJMex/JJMex/main/Banner.png" alt="JJMex Banner" class="banner-img">
         </div>
-        
         <h1>
             JJMex Community
-            <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-            </svg>
+            <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
         </h1>
         <p class="subtitle">Hub oficial de inteligencia vial y movilidad.</p>
     </header>
@@ -232,7 +174,7 @@
         
         <div class="section-label">Canales Inteligentes</div>
 
-        <a href="https://t.me/AlertasMetroCDMX" target="_blank" class="card">
+        <a href="https://t.me/AlertasMetroCDMX" class="card link-card">
             <div class="icon-box icon-metro">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M2 8h20"/><path d="M3.5 8a2.5 2.5 0 0 1 0-5"/></svg>
             </div>
@@ -240,10 +182,9 @@
                 <h3>Alertas metro CDMX</h3>
                 <p>Reportes en tiempo real de las 12 líneas.</p>
             </div>
-            <div class="arrow">➜</div>
-        </a>
+            </a>
 
-        <a href="https://t.me/CVACDMX" target="_blank" class="card">
+        <a href="https://t.me/CVACDMX" class="card link-card">
             <div class="icon-box icon-road">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
             </div>
@@ -251,10 +192,9 @@
                 <h3>Alertas viales</h3>
                 <p>Monitor Autopista del Sol y CDMX.</p>
             </div>
-            <div class="arrow">➜</div>
         </a>
 
-        <a href="https://t.me/MenteExito" target="_blank" class="card">
+        <a href="https://t.me/MenteExito" class="card link-card">
             <div class="icon-box icon-mind">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             </div>
@@ -262,12 +202,11 @@
                 <h3>Mente & Exito 365</h3>
                 <p>Estrategias y mindset de alto rendimiento.</p>
             </div>
-            <div class="arrow">➜</div>
         </a>
 
         <div class="section-label">Red Comunitaria</div>
 
-        <a href="#" class="card">
+        <a href="#" class="card link-card">
             <div class="icon-box icon-wa">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
             </div>
@@ -275,10 +214,9 @@
                 <h3>Monitor CVA-CDMX <span class="tag-pill">G1</span></h3>
                 <p>Reportes exclusivos del tramo carretero.</p>
             </div>
-            <div class="arrow">➜</div>
         </a>
 
-        <a href="#" class="card">
+        <a href="#" class="card link-card">
             <div class="icon-box icon-wa">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
             </div>
@@ -286,7 +224,6 @@
                 <h3>Monitor CVA-CDMX <span class="tag-pill">G2</span></h3>
                 <p>Grupo de respaldo y tráfico en vivo.</p>
             </div>
-            <div class="arrow">➜</div>
         </a>
 
     </div>
@@ -294,6 +231,73 @@
     <footer>
         <p>© 2026 JJMex Systems.</p>
     </footer>
+
+    <div class="modal-overlay" id="qrModal">
+        <div class="qr-card">
+            <h3 style="color:white; margin-bottom: 5px;">Escanear para Unirse</h3>
+            <p style="color:#888; font-size: 0.9rem;" id="qrTargetName">Grupo Oficial</p>
+            
+            <div id="qrcode-display"></div>
+            
+            <button class="close-btn" onclick="closeQR()">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.link-card');
+            
+            cards.forEach(card => {
+                const url = card.getAttribute('href');
+                
+                // Crear botón QR
+                const btn = document.createElement('button');
+                btn.className = 'qr-trigger';
+                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><path d="M3 14h7v7H3z"></path></svg>';
+                
+                // Evento Clic (Evita abrir el enlace principal)
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); // No abrir link
+                    e.stopPropagation(); // No propagar clic
+                    showQR(url, card.querySelector('h3').innerText);
+                });
+
+                card.appendChild(btn);
+            });
+        });
+
+        function showQR(url, title) {
+            const modal = document.getElementById('qrModal');
+            const container = document.getElementById('qrcode-display');
+            const titleEl = document.getElementById('qrTargetName');
+            
+            // Limpiar QR anterior
+            container.innerHTML = '';
+            titleEl.innerText = title;
+
+            // Generar Nuevo QR
+            new QRCode(container, {
+                text: url,
+                width: 200,
+                height: 200,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+
+            // Mostrar Modal
+            modal.classList.add('active');
+        }
+
+        function closeQR() {
+            document.getElementById('qrModal').classList.remove('active');
+        }
+
+        // Cerrar al dar clic fuera
+        document.getElementById('qrModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('qrModal')) closeQR();
+        });
+    </script>
 
 </body>
 </html>
