@@ -41,13 +41,13 @@
             min-height: 100vh; overflow-x: hidden;
         }
 
-        /* --- BACKGROUND EFFECTS --- */
+        /* --- EFECTOS AMBIENTALES --- */
         .ambient-light {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: radial-gradient(circle at 50% 0%, #111111 0%, #050505 80%);
         }
         .orb {
-            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.2;
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15;
             animation: float 20s infinite ease-in-out;
         }
         .orb-1 { width: 400px; height: 400px; background: var(--tg-color); top: -150px; left: -100px; }
@@ -56,9 +56,7 @@
         @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(30px, 50px); } }
 
         /* --- HEADER --- */
-        header {
-            text-align: center; padding: 60px 20px 40px; width: 100%; max-width: 600px;
-        }
+        header { text-align: center; padding: 60px 20px 40px; width: 100%; max-width: 600px; }
         .banner-wrapper {
             position: relative; margin-bottom: 30px; border-radius: 24px; overflow: hidden;
             box-shadow: 0 30px 60px -12px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);
@@ -70,28 +68,32 @@
         .verified-badge { width: 24px; height: 24px; color: var(--accent); }
         .subtitle { color: var(--text-muted); margin-top: 8px; font-size: 1.1rem; }
 
-        /* --- CONTAINER & CARDS --- */
+        /* --- CONTENEDOR DE TARJETAS --- */
         .container { width: 100%; max-width: 550px; padding: 0 20px 80px; display: flex; flex-direction: column; gap: 16px; }
 
         .section-label {
             font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-            color: #444; margin-top: 30px; display: flex; align-items: center; gap: 15px;
+            color: #555; margin-top: 30px; display: flex; align-items: center; gap: 15px;
         }
-        .section-label::after { content: ''; height: 1px; flex-grow: 1; background: linear-gradient(90deg, #222, transparent); }
+        .section-label::after { content: ''; height: 1px; flex-grow: 1; background: linear-gradient(90deg, #333, transparent); }
 
         .card {
             background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px;
             padding: 20px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 18px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); cursor: pointer;
         }
         .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); background: rgba(30,30,30,0.8); }
 
         .icon-box {
             width: 52px; height: 52px; background: rgba(255,255,255,0.03); border-radius: 16px;
             display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border);
+            flex-shrink: 0;
         }
-        .card h3 { font-size: 1.1rem; margin-bottom: 2px; }
+        .icon-box svg { width: 24px; height: 24px; }
+        
+        .content { flex-grow: 1; }
+        .card h3 { font-size: 1.1rem; margin-bottom: 2px; color: #fff; }
         .card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
 
         .qr-trigger {
@@ -100,7 +102,7 @@
         }
         .qr-trigger:hover { color: #fff; transform: scale(1.2); }
 
-        /* --- MODAL --- */
+        /* --- MODAL QR --- */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
             display: grid; place-items: center; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 1000;
@@ -108,11 +110,12 @@
         .modal-overlay.active { opacity: 1; pointer-events: all; }
         .qr-card {
             background: #111; padding: 40px; border-radius: 30px; text-align: center; border: 1px solid #222;
+            max-width: 90%;
         }
-        #qrcode-display { background: #fff; padding: 15px; border-radius: 15px; margin: 20px 0; }
-        .close-btn { background: #fff; color: #000; border: none; padding: 12px 30px; border-radius: 50px; font-weight: 600; cursor: pointer; }
+        #qrcode-display { background: #fff; padding: 15px; border-radius: 15px; margin: 20px auto; width: fit-content; }
+        .close-btn { background: #fff; color: #000; border: none; padding: 12px 30px; border-radius: 50px; font-weight: 600; cursor: pointer; margin-top: 10px; }
 
-        footer { padding: 40px; color: #333; font-size: 0.8rem; text-align: center; }
+        footer { padding: 40px; color: #444; font-size: 0.8rem; text-align: center; margin-top: auto; }
     </style>
 </head>
 <body>
@@ -121,10 +124,10 @@
 
     <header>
         <div class="banner-wrapper">
-            <img src="https://raw.githubusercontent.com/JJMex/JJMex/main/Banner.png" alt="Banner" class="banner-img">
+            <img src="https://raw.githubusercontent.com/JJMex/JJMex/main/Banner.png" alt="JJMex Banner" class="banner-img">
         </div>
         <h1>JJMex Community <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></h1>
-        <p class="subtitle">Ecosistema de inteligencia vial y movilidad.</p>
+        <p class="subtitle">Hub oficial de inteligencia vial y movilidad.</p>
     </header>
 
     <div class="container" id="links-container">
@@ -134,50 +137,60 @@
 
     <div class="modal-overlay" id="qrModal">
         <div class="qr-card">
-            <h3 id="qrTitle">Acceso Directo</h3>
+            <h3 id="qrTitle" style="color: white; margin-bottom: 5px;">Escanear para Unirse</h3>
+            <p id="qrTargetName" style="color: #888; font-size: 0.9rem;">Grupo Oficial</p>
             <div id="qrcode-display"></div>
             <button class="close-btn" onclick="closeQR()">Cerrar</button>
         </div>
     </div>
 
     <script>
-        // Iconos SVG reutilizables
+        // Diccionario de Iconos SVGs Originales
         const icons = {
-            telegram: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
-            whatsapp: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>`
+            telegram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M2 8h20"/></svg>`,
+            whatsapp: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>`,
+            default: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`
         };
 
         async function initHub() {
             const container = document.getElementById('links-container');
             try {
+                // Cargamos la data desde el archivo externo
                 const res = await fetch('./links.json');
-                const { comunidades } = await res.json();
+                if (!res.ok) throw new Error('No se pudo cargar links.json');
+                const data = await res.json();
                 
-                const categorias = [...new Set(comunidades.map(c => c.categoria))];
+                // Extraemos categorías únicas para organizar la UI
+                const categorias = [...new Set(data.comunidades.map(c => c.categoria))];
                 
                 container.innerHTML = '';
                 categorias.forEach(cat => {
                     container.innerHTML += `<div class="section-label">${cat}</div>`;
-                    comunidades.filter(c => c.categoria === cat).forEach(link => {
-                        container.innerHTML += createCard(link);
+                    data.comunidades.filter(c => c.categoria === cat).forEach(link => {
+                        container.innerHTML += createCardHTML(link);
                     });
                 });
             } catch (e) {
-                container.innerHTML = "<p>Error al sincronizar datos.</p>";
+                console.error(e);
+                container.innerHTML = `<p style="text-align:center; color:red; margin-top:20px;">Error: Asegúrate de que 'links.json' exista en el repositorio.</p>`;
             }
         }
 
-        function createCard(link) {
-            const icon = icons[link.plataforma] || icons.telegram;
+        function createCardHTML(link) {
+            // Asignamos icono según plataforma o usamos el de mindset para 'Mente & Exito'
+            let iconKey = link.plataforma;
+            if (link.titulo.includes('Mente')) iconKey = 'default';
+            const icon = icons[iconKey] || icons.telegram;
+
             return `
-                <div class="card link-card" onclick="window.open('${link.url}', '_blank')">
+                <div class="card" onclick="window.open('${link.url}', '_blank')">
                     <div class="icon-box">${icon}</div>
                     <div class="content">
                         <h3>${link.titulo}</h3>
                         <p>${link.descripcion}</p>
                     </div>
                     <button class="qr-trigger" onclick="event.stopPropagation(); openQR('${link.url}', '${link.titulo}')">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><path d="M3 14h7v7H3z"></path></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><path d="M3 14h7v7H3z"></path></svg>
                     </button>
                 </div>
             `;
@@ -186,13 +199,16 @@
         function openQR(url, title) {
             const modal = document.getElementById('qrModal');
             const display = document.getElementById('qrcode-display');
-            document.getElementById('qrTitle').innerText = title;
+            document.getElementById('qrTargetName').innerText = title;
             display.innerHTML = '';
-            new QRCode(display, { text: url, width: 200, height: 200 });
+            new QRCode(display, { text: url, width: 200, height: 200, colorDark: "#000000", colorLight: "#ffffff" });
             modal.classList.add('active');
         }
 
         function closeQR() { document.getElementById('qrModal').classList.remove('active'); }
+
+        // Cerrar modal si se hace clic fuera de la tarjeta
+        window.onclick = (e) => { if (e.target.id === 'qrModal') closeQR(); };
 
         document.addEventListener('DOMContentLoaded', initHub);
     </script>
