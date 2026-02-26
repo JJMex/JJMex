@@ -8,6 +8,8 @@
     <title>JJMex Community | Hub Oficial</title>
     <meta name="description" content="Red de inteligencia vial y movilidad de élite.">
     
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     
@@ -46,7 +48,7 @@
         .logo-placeholder {
             width: 70px; height: 70px; background: linear-gradient(135deg, #222, #000);
             border: 1px solid var(--glass-border); border-radius: 20px; margin: 0 auto 15px;
-            display: grid; place-items: center; font-size: 1.8rem; box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            display: grid; place-items: center; box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
         h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 5px; }
         .verified { color: var(--accent); vertical-align: middle; width: 20px; }
@@ -81,7 +83,7 @@
         .card {
             background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px;
             padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer;
-            backdrop-filter: blur(12px); transform-style: preserve-3d; /* Clave para el efecto 3D profundo */
+            backdrop-filter: blur(12px); transform-style: preserve-3d;
             position: relative; overflow: hidden;
         }
         
@@ -92,7 +94,6 @@
         .card-tg:hover { border-color: rgba(34, 158, 217, 0.4); box-shadow: 0 10px 30px rgba(34, 158, 217, 0.1); }
         .card-wa:hover { border-color: rgba(37, 211, 102, 0.4); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.1); }
 
-        /* Elevación de elementos internos para el 3D */
         .icon-box, .content, .actions { transform: translateZ(30px); }
 
         .icon-box {
@@ -137,7 +138,6 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Ocultar en móviles para evitar confusión */
         @media (max-width: 600px) { .shortcut-badge { display: none; } }
     </style>
 </head>
@@ -146,7 +146,13 @@
     <div class="ambient-bg"></div>
 
     <header>
-        <div class="logo-placeholder">🇲🇽</div>
+        <div class="logo-placeholder">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+            </svg>
+        </div>
         <h1>JJMex Community <svg class="verified" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></h1>
         <p class="subtitle">Inteligencia vial y redes de movilidad avanzada.</p>
     </header>
@@ -220,7 +226,6 @@
                     container.innerHTML += catHTML;
                 });
 
-                // Inicializar efecto 3D
                 VanillaTilt.init(document.querySelectorAll(".card"), {
                     max: 8, speed: 400, glare: true, "max-glare": 0.15, perspective: 1000
                 });
@@ -230,7 +235,7 @@
             }
         }
 
-        /* --- LÓGICA DE BÚSQUEDA EN TIEMPO REAL --- */
+        /* --- LÓGICA DE BÚSQUEDA --- */
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             document.querySelectorAll('.category-group').forEach(group => {
@@ -243,11 +248,11 @@
                         card.style.display = 'none';
                     }
                 });
-                group.style.display = hasVisibleCard ? 'flex' : 'none'; // Oculta la categoría entera si no hay resultados
+                group.style.display = hasVisibleCard ? 'flex' : 'none'; 
             });
         });
 
-        /* --- ATAJO DE TECLADO (CMD+K / CTRL+K) --- */
+        /* --- ATAJO DE TECLADO --- */
         window.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
