@@ -1,0 +1,20 @@
+{
+  "comunidades": [
+    {
+      "id": 1,
+      "titulo": "Alertas metro CDMX",
+      "descripcion": "Reportes en tiempo real de las 12 líneas.",
+      "url": "https://t.me/AlertasMetroCDMX",
+      "plataforma": "telegram",
+      "categoria": "Canales Inteligentes"
+    },
+    {
+      "id": 2,
+      "titulo": "Monitor CVA-CDMX (G1)",
+      "descripcion": "Reportes exclusivos del tramo carretero.",
+      "url": "https://chat.whatsapp.com/JtKri5VlEPf6Wmy3NyBlx1?mode=gi_t",
+      "plataforma": "whatsapp",
+      "categoria": "Red Comunitaria"
+    }
+  ]
+}
