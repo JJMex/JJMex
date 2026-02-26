@@ -10,9 +10,33 @@
     },
     {
       "id": 2,
+      "titulo": "Alertas viales",
+      "descripcion": "Monitor Autopista del Sol y CDMX.",
+      "url": "https://t.me/CVACDMX",
+      "plataforma": "telegram",
+      "categoria": "Canales Inteligentes"
+    },
+    {
+      "id": 3,
+      "titulo": "Mente & Exito 365",
+      "descripcion": "Estrategias y mindset de alto rendimiento.",
+      "url": "https://t.me/MenteExito",
+      "plataforma": "telegram",
+      "categoria": "Canales Inteligentes"
+    },
+    {
+      "id": 4,
       "titulo": "Monitor CVA-CDMX (G1)",
       "descripcion": "Reportes exclusivos del tramo carretero.",
       "url": "https://chat.whatsapp.com/JtKri5VlEPf6Wmy3NyBlx1?mode=gi_t",
+      "plataforma": "whatsapp",
+      "categoria": "Red Comunitaria"
+    },
+    {
+      "id": 5,
+      "titulo": "Monitor CVA-CDMX (G2)",
+      "descripcion": "Grupo de respaldo y tráfico en vivo.",
+      "url": "https://chat.whatsapp.com/IkOVISAd3DY6HDCuJClXZJ?mode=gi_t",
       "plataforma": "whatsapp",
       "categoria": "Red Comunitaria"
     }
